@@ -19,6 +19,15 @@ const nextConfig = {
     serverComponentsExternalPackages: ['mongoose'],
   },
 
+  // Render-specific configuration
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Fix for jsonwebtoken on Render
+      config.externals.push('jsonwebtoken');
+    }
+    return config;
+  },
+
   // Security headers
   headers: async () => {
     return [
