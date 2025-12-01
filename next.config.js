@@ -14,22 +14,9 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Disable font optimization for Render
-  optimizeFonts: false,
-  
   // External packages for server components
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
-  },
-
-  // Render-specific configuration
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // Fix for jsonwebtoken on Render
-      config.externals = config.externals || [];
-      config.externals.push('jsonwebtoken');
-    }
-    return config;
   },
 
   // Security headers
