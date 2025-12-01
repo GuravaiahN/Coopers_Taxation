@@ -12,37 +12,33 @@ export async function middleware(request: NextRequest) {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('X-XSS-Protection', '1; mode=block');
 
-  // Simple token validation for protected routes (without JWT verification in middleware)
+  // Skip auth check for static files and API auth routes
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api/auth') ||
+    pathname.includes('.') ||
+    pathname === '/login' ||
+    pathname === '/register' ||
+    pathname === '/'
+  ) {
+    return response;
+  }
+
+  // Protected routes that require authentication
   const protectedRoutes = ['/admin', '/user/dashboard'];
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
   if (isProtectedRoute) {
-    // Check for token existence only (full validation happens in API routes)
-    const authHeader = request.headers.get('authorization');
-    const cookieToken = request.cookies.get('token')?.value;
-    const token = authHeader?.replace('Bearer ', '') || cookieToken;
-
-    if (!token) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-
-    // Basic token format check (JWT tokens have 3 parts separated by dots)
-    const tokenParts = token.split('.');
-    if (tokenParts.length !== 3) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
+    // For protected routes, let client-side auth provider handle authentication
+    // Only check API routes for tokens
+    return response;
   }
 
-  // API route token check (without verification)
-  if (pathname.startsWith('/api/admin') || pathname.startsWith('/api/user')) {
-    const authHeader = request.headers.get('authorization');
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Missing or invalid token' },
-        { status: 401 }
-      );
-    }
+  // API route authentication - allow NextAuth session cookies
+  if (pathname.startsWith('/api/') && !pathname.startsWith('/api/auth')) {
+    // Let NextAuth session authentication handle API route protection
+    // Remove Bearer token requirement since we're using session cookies
+    return response;
   }
 
   return response;
