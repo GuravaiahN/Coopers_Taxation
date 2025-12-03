@@ -31,6 +31,11 @@ const openSans = Open_Sans({
 export const metadata = {
   title: "Cooper's Taxation - Professional Tax Services",
   description: "Expert tax preparation and consultation services for individuals and businesses. Professional, reliable, and secure tax solutions.",
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -41,7 +46,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <title>Cooper&apos;s Taxation</title>
-        <link rel="icon" href="/favicon2.ico" type="image/png" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body className="font-poppins">
         <SessionProvider>
