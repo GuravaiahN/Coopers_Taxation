@@ -91,7 +91,7 @@ const ContactFormData = ({ isAdmin }: { isAdmin: boolean }) => {
   const handleSearch = useCallback(
     (searchTerm: string) => {
       const filtered = contactData.filter(({ name, email }) =>
-        `${name} ${email}`.toLowerCase().includes(searchTerm.toLowerCase())
+        `${name || ''} ${email || ''}`.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredData(filtered);
     },

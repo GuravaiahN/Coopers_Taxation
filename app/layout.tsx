@@ -47,6 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <title>Cooper&apos;s Taxation</title>
         <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/favicon.png" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
       </head>

@@ -73,7 +73,7 @@ const RegisteredUsers: React.FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
   const handleSearch = useCallback(
     (searchTerm: string) => {
       const filtered = users.filter(({ name, email }) =>
-        `${name} ${email}`.toLowerCase().includes(searchTerm.toLowerCase())
+        `${name || ''} ${email || ''}`.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredData(filtered);
     },
