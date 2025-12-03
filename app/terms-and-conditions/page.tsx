@@ -160,7 +160,7 @@ const TermsOfUse = () => {
           </p>
           <p className="font-poppins text-lg">
             For any further questions, call us at{' '}
-            <strong>+1-417-254-2321</strong> or send an email to{' '}
+            <strong>+1 (414) 446-7545</strong> or send an email to{' '}
             <a
               href="mailto:info@cooperstaxation.com"
               className="text-blue-500 font-poppins"

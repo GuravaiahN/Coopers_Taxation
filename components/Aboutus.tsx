@@ -12,7 +12,7 @@ const AboutUs = () => {
         {/* Left Section - Illustration */}
         <div className="w-full sm:w-3/5 md:w-3/5 relative h-[200px] sm:h-[200px] md:h-[300px] sm:mt-4 rounded-lg overflow-hidden">
           <Image
-            src="/About.png"
+            src="/images/AboutUsHero.png"
             alt="About Cooper's Taxation"
             fill
             className="absolute object-contain rounded-lg"

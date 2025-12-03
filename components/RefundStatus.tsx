@@ -308,7 +308,7 @@ const RefundStatus = () => {
                 <Phone className="h-5 w-5 text-red-700" />
                 <div>
                   <p className="font-semibold text-black">+1 (414) 446-7545</p>
-                  <p className="text-sm text-gray-600">Mon-Fri 9AM-7PM (CST)</p>
+                  <p className="text-sm text-gray-600">Mon-Sat 9AM-7PM (CST)</p>
                 </div>
               </div>
               <p className="text-gray-700 text-sm">

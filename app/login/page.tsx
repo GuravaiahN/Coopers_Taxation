@@ -131,7 +131,7 @@ export default function Login() {
 
           <div className="relative w-full h-60 md:h-80">
             <Image
-              src="/Login.png"
+              src="/images/LoginIllustration.png.png"
               alt="Login Illustration"
               fill
               className="object-contain"

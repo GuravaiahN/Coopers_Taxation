@@ -119,9 +119,9 @@ const Navbar = () => {
       <div className="flex justify-around items-center w-full px-4 py-3 lg:hidden h-24 ">
         <Link href="/" className="flex">
           <Image
-            src="/Cooper.png"
+            src="/images/Logo.png"
             alt="Cooper's Taxation Logo"
-            width={200}
+            width={250}
             height={150}
             priority
             className="object-contain"

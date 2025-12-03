@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/taxsvg3.svg',
+        url: 'https://www.cooperstaxation.com/About.png',
         alt: "Contact Cooper's Taxation - Professional Support",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Reach out to Cooper's Taxation for expert help with bookkeeping, taxation, and payroll services. We're here to assist you.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/taxsvg3.svg',
+        url: 'https://www.cooperstaxation.com/About.png',
         alt: "Contact Cooper's Taxation - Professional Support",
       },
     ],
@@ -86,7 +86,7 @@ const ContactUs = () => {
         {/* Right Section - Image */}
         <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-lg">
           <Image
-            src="/taxsvg3.svg"
+            src="/images/ContactHero.png"
             alt="Customer Service Illustration"
             fill
             className="object-cover"
@@ -121,10 +121,10 @@ const ContactUs = () => {
             />
             <span className="flex-1 text-sm sm:text-base md:text-lg lg:text-xl text-black font-poppins">
               <a
-                href="tel:+14172542321"
+                href="tel:+14144467545"
                 aria-label="Phone number for Cooper's Taxation"
               >
-                +1-417-254-2321
+                +1 (414) 446-7545
               </a>
             </span>
           </div>

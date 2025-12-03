@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/illustrations1.png',
+        url: 'https://www.cooperstaxation.com/FinanceV02.png',
         alt: "Refer and Earn Rewards - Cooper's Taxation",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Get rewarded for spreading the word! Refer Cooper's Taxation to your friends and earn rewards for every successful referral.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/illustrations1.png',
+        url: 'https://www.cooperstaxation.com/FinanceV02.png',
         alt: "Refer and Earn Rewards - Cooper's Taxation",
       },
     ],
@@ -98,7 +98,7 @@ const ReferEarn = () => {
           {/* Right Section - Illustration */}
           <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-full">
             <Image
-              src="/illustrations1.png" // Ensure to replace this with the correct image path
+              src="/FinanceV02.png" // Ensure to replace this with the correct image path
               alt="Refer and Earn Illustration"
               fill
               className="object-cover"

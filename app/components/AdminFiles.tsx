@@ -68,17 +68,19 @@ const AdminFiles: React.FC = () => {
   const uniqueFileTypes = useMemo(() => {
     const types = fileData.flatMap(user => [
       ...user.documents.map(doc => {
+        if (!doc || !doc.filename) return 'Other';
         const extension = doc.filename.split('.').pop()?.toLowerCase();
         if (extension === 'pdf') return 'PDF';
-        if (['jpg', 'jpeg', 'png'].includes(extension!)) return 'Image';
-        if (['doc', 'docx'].includes(extension!)) return 'Document';
+        if (extension && ['jpg', 'jpeg', 'png'].includes(extension)) return 'Image';
+        if (extension && ['doc', 'docx'].includes(extension)) return 'Document';
         return 'Other';
       }),
       ...(user.additionalDocuments?.map(doc => {
+        if (!doc || !doc.filename) return 'Other';
         const extension = doc.filename.split('.').pop()?.toLowerCase();
         if (extension === 'pdf') return 'PDF';
-        if (['jpg', 'jpeg', 'png'].includes(extension!)) return 'Image';
-        if (['doc', 'docx'].includes(extension!)) return 'Document';
+        if (extension && ['jpg', 'jpeg', 'png'].includes(extension)) return 'Image';
+        if (extension && ['doc', 'docx'].includes(extension)) return 'Document';
         return 'Other';
       }) || [])
     ]);
@@ -89,8 +91,12 @@ const AdminFiles: React.FC = () => {
   const filteredResults = useMemo(() => {
     return fileData.filter(user => {
       // Search term filter (searches across multiple fields)
-      const searchString = `${user.fullName} ${user.email} ${user.phone} ${user.message}`.toLowerCase();
-      const documentNames = [...user.documents, ...(user.additionalDocuments || [])].map(doc => doc.filename).join(' ').toLowerCase();
+      const searchString = `${user.fullName || ''} ${user.email || ''} ${user.phone || ''} ${user.message || ''}`.toLowerCase();
+      const documentNames = [...(user.documents || []), ...(user.additionalDocuments || [])]
+        .filter(doc => doc && doc.filename)
+        .map(doc => doc.filename)
+        .join(' ')
+        .toLowerCase();
       const matchesSearch = !searchTerm || searchString.includes(searchTerm.toLowerCase()) || documentNames.includes(searchTerm.toLowerCase());
 
       // Status filter
@@ -101,13 +107,15 @@ const AdminFiles: React.FC = () => {
 
       // File type filter
       if (fileTypeFilter !== 'all') {
-        const userFileTypes = [...user.documents, ...(user.additionalDocuments || [])].map(doc => {
-          const extension = doc.filename.split('.').pop()?.toLowerCase();
-          if (extension === 'pdf') return 'PDF';
-          if (['jpg', 'jpeg', 'png'].includes(extension!)) return 'Image';
-          if (['doc', 'docx'].includes(extension!)) return 'Document';
-          return 'Other';
-        });
+        const userFileTypes = [...(user.documents || []), ...(user.additionalDocuments || [])]
+          .filter(doc => doc && doc.filename)
+          .map(doc => {
+            const extension = doc.filename.split('.').pop()?.toLowerCase();
+            if (extension === 'pdf') return 'PDF';
+            if (extension && ['jpg', 'jpeg', 'png'].includes(extension)) return 'Image';
+            if (extension && ['doc', 'docx'].includes(extension)) return 'Document';
+            return 'Other';
+          });
         const matchesFileType = userFileTypes.includes(fileTypeFilter as any);
         return matchesSearch && matchesStatus && matchesTaxYear && matchesFileType;
       }
@@ -169,18 +177,22 @@ const AdminFiles: React.FC = () => {
 
   const exportToExcel = (data: UserData[], fileName: string) => {
     const formattedData = data.map((user) => ({
-      Name: user.fullName,
-      Email: user.email,
-      Phone: user.phone,
-      Message: user.message,
+      Name: user.fullName || '',
+      Email: user.email || '',
+      Phone: user.phone || '',
+      Message: user.message || '',
       Status: user.status || 'uploaded',
       TaxYear: user.taxYear || 'N/A',
       Notes: user.notes || 'N/A',
       Date: new Date(user.createdAt).toLocaleString(),
-      Documents: user.documents.map((doc) => doc.filename).join(', '),
-      'Additional Documents': user.additionalDocuments
-        ? user.additionalDocuments.map((doc) => doc.filename).join(', ')
-        : 'N/A',
+      Documents: (user.documents || [])
+        .filter(doc => doc && doc.filename)
+        .map((doc) => doc.filename)
+        .join(', ') || 'N/A',
+      'Additional Documents': (user.additionalDocuments || [])
+        .filter(doc => doc && doc.filename)
+        .map((doc) => doc.filename)
+        .join(', ') || 'N/A',
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);

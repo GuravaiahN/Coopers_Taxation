@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/About.png',
+        url: '/images/AboutUsHero.png',
         alt: "About Us - Cooper's Taxation Team",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Get to know the experienced team behind Cooper's Taxation. Providing top-quality tax, bookkeeping, and payroll services tailored to meet your needs.",
     images: [
       {
-        url: '/About.png',
+        url: '/images/AboutUsHero.png',
         alt: "About Us - Cooper's Taxation Team",
       },
     ],
@@ -71,7 +71,7 @@ const AboutUs = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between space-y-12 lg:space-y-0">
           <div className="relative w-full lg:w-1/2 h-64 sm:h-80 md:h-96">
             <Image
-              src="/About.png"
+              src="/images/AboutUsHero.png"
               alt="About Cooper's Taxation"
               fill
               style={{ objectFit: 'cover' }}
@@ -106,7 +106,7 @@ const AboutUs = () => {
           <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative w-full h-64 sm:h-80 md:h-96">
               <Image
-                src="/about1.jpg"
+                src="/images/TeamWorkingOnTax.png"
                 alt="Team working on tax solutions"
                 fill
                 objectFit="cover"
@@ -115,7 +115,7 @@ const AboutUs = () => {
             </div>
             <div className="relative w-full h-64 sm:h-80 md:h-96">
               <Image
-                src="/about2.jpg"
+                src="/images/TaxSign.png"
                 alt="Signing important documents"
                 fill
                 objectFit="cover"

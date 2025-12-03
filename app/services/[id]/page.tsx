@@ -139,7 +139,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
               <div className="space-y-3 text-sm">
                 <div className="flex items-center space-x-2">
                   <span>📞</span>
-                  <span className="text-gray-700">(555) 123-4567</span>
+                  <span className="text-gray-700">+1 (414) 446-7545</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span>📧</span>
@@ -147,7 +147,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
                 </div>
                 <div className="flex items-center space-x-2">
                   <span>🕒</span>
-                  <span className="text-gray-700">Mon-Fri: 9AM-6PM</span>
+                  <span className="text-gray-700">Mon-Sat: 9AM-7PM (CST)</span>
                 </div>
               </div>
               

@@ -112,11 +112,11 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
-                src="/Cooper.png"
+                src="/images/Logo.png"
                 alt="Cooper's Taxation"
-                width={200}
-                height={70}
-                className="h-14 w-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]"
+                width={250}
+                height={80}
+                className="h-16 w-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]"
               />
             </Link>
 

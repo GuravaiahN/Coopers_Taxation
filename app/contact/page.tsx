@@ -80,7 +80,7 @@ export default function ContactPage() {
                 <div className="text-red-600 text-xl">📞</div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Phone Number</h3>
-                  <p className="text-gray-600">(555) 123-4567</p>
+                  <p className="text-gray-600">+1 (414) 446-7545</p>
                 </div>
               </div>
               
@@ -97,8 +97,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-gray-800">Business Hours</h3>
                   <p className="text-gray-600">
-                    Monday - Friday: 9:00 AM - 6:00 PM<br />
-                    Saturday: 10:00 AM - 4:00 PM<br />
+                    Monday - Saturday: 9:00 AM - 7:00 PM (CST)<br />
                     Sunday: Closed
                   </p>
                 </div>
@@ -192,7 +191,7 @@ export default function ContactPage() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500"
-                    placeholder="(555) 123-4567"
+                    placeholder="+1 (414) 446-7545"
                   />
                 </div>
                 

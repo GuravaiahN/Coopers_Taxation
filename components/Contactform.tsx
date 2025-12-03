@@ -92,7 +92,7 @@ const ContactForm: React.FC = () => {
           </p>
           <div className="w-full h-64 sm:h-80 md:h-96 relative">
             <Image
-              src="/team3.jpg"
+              src="/images/team3.webp"
               alt="Person Working on Laptop"
               layout="fill"
               className="object-cover rounded-2xl"

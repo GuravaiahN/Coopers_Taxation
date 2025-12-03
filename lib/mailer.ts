@@ -29,7 +29,7 @@ export const sendPasswordResetEmail = async (
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
         <div style="text-align: center; padding: 20px 0;">
-          <img src="${baseUrl}/logo.png" alt="Cooper's Taxation" style="width: 150px;" />
+          <img src="${baseUrl}/images/Logo.png" alt="Cooper's Taxation" style="width: 150px;" />
         </div>
         <h2 style="color: #C84B31; text-align: center; font-family: 'Arial', sans-serif;">
           Password Reset Request
@@ -88,7 +88,7 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
         <div style="text-align: center; padding: 20px 0;">
-          <img src="${baseUrl}/logo.png" alt="Cooper's Taxation" style="width: 150px;" />
+          <img src="${baseUrl}/images/Logo.png" alt="Cooper's Taxation" style="width: 150px;" />
         </div>
         <h2 style="color: #C84B31; text-align: center; font-family: 'Arial', sans-serif;">
           Welcome to Cooper's Taxation!

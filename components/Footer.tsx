@@ -39,7 +39,7 @@ const Footer = () => {
 
             {/* WhatsApp */}
             <a
-              href="https://wa.me/14172542321?text=Hello%2C%20I%20need%20assistance%20with%20your%20services"
+              href="https://wa.me/14144467545?text=Hello%2C%20I%20need%20assistance%20with%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp Chat"
@@ -116,15 +116,15 @@ const Footer = () => {
               </p>
               <p>
                 <a
-                  href="tel:+14172542321"
+                  href="tel:+14144467545"
                   className="hover:text-gray-300 transition-all"
                 >
-                  +1 (417) 254-2321
+                  +1 (414) 446-7545
                 </a>
               </p>
               <p className="text-gray-200 leading-relaxed">
                 Operating Hours: <br />
-                Mon–Fri, 9 AM – 7 PM (CST)
+                Mon–Sat, 9 AM – 7 PM (CST)
               </p>
             </address>
           </div>

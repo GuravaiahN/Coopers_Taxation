@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       "Get to know the experienced team behind Cooper's Taxation. Providing top-quality tax, bookkeeping, and payroll services tailored to meet your needs.",
     images: [
       {
-        url: '/About.png',
+        url: '/images/AboutUsHero.png',
         alt: "About Us - Cooper's Taxation Team",
       },
     ],
@@ -74,7 +74,7 @@ const AboutUs = () => {
         {/* Left Illustration */}
         <div className="w-full sm:w-3/5 md:w-1/2 relative h-[260px] sm:h-[300px] md:h-[380px] rounded-xl overflow-hidden shadow-xl">
           <Image
-            src="/About.png"
+            src="/images/AboutUsHero.png"
             alt="About Cooper's Taxation"
             fill
             className="absolute object-contain rounded-xl"

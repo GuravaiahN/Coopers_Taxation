@@ -164,8 +164,8 @@ const UserDashboard: React.FC = () => {
   const filteredDocuments = documents.filter((doc) => {
     const s = searchTerm.toLowerCase();
     const matchesSearch =
-      doc.originalName.toLowerCase().includes(s) ||
-      doc.filename.toLowerCase().includes(s) ||
+      (doc.originalName || '').toLowerCase().includes(s) ||
+      (doc.filename || '').toLowerCase().includes(s) ||
       (doc.notes?.toLowerCase().includes(s) || false);
 
     const matchesStatus =

@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     title: "404 - Page Not Found | Cooper's Taxation",
     description:
       "Sorry, the page you are looking for is not available. Visit Cooper's Taxation homepage for reliable tax and financial services.",
-    url: 'https://www.cooperstaxation.com/not-found',
+    url: '/images/NotFound.png',
     siteName: "Cooper's Taxation",
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/illustrations5.png',
+        url: '/images/NotFound.png',
         alt: "Page Not Found - Cooper's Taxation",
       },
     ],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "Sorry, the page you are looking for is not available. Explore Cooper's Taxation services for expert tax and financial solutions.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/illustrations5.png',
+        url: '/images/NotFound.png',
         alt: "Page Not Found - Cooper's Taxation",
       },
     ],
@@ -59,11 +59,11 @@ const NotFound = () => {
       </div>
       <div className="w-full sm:w-1/2 text-center">
         <Image
-          src="/illustrations5.png"
-          alt="Page Not Found"
-          width={300}
+          src="/images/NotFound.png"
+          alt="Page Not Found - 404 Error"
+          width={400}
           height={300}
-          className="mx-auto sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+          className="mx-auto sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72"
         />
       </div>
     </div>
