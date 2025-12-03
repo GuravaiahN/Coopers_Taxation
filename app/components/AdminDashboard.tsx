@@ -180,8 +180,8 @@ const AdminDashboard: React.FC = () => {
     let list = users.filter((u) => {
       const matchesSearch =
         !s ||
-        u.name.toLowerCase().includes(s) ||
-        u.email.toLowerCase().includes(s) ||
+        (u.name || '').toLowerCase().includes(s) ||
+        (u.email || '').toLowerCase().includes(s) ||
         (u.phone || '').toLowerCase().includes(s);
 
       const matchesRole = roleFilter === 'all' || u.role === roleFilter;
@@ -193,10 +193,10 @@ const AdminDashboard: React.FC = () => {
       let res = 0;
       switch (sortBy) {
         case 'name':
-          res = a.name.localeCompare(b.name);
+          res = (a.name || '').localeCompare(b.name || '');
           break;
         case 'email':
-          res = a.email.localeCompare(b.email);
+          res = (a.email || '').localeCompare(b.email || '');
           break;
         case 'documents':
           res = (a.documentCount || 0) - (b.documentCount || 0);
