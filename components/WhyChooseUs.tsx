@@ -11,6 +11,7 @@ import {
   FaHeadset,
   FaFileContract,
 } from 'react-icons/fa';
+import { COMPANY_STATS } from '../lib/constants';
 
 type Benefit = {
   icon: React.ElementType;
@@ -120,6 +121,37 @@ export default function TaxBenefits() {
   return (
     <section className="relative min-h-screen pb-10 overflow-hidden text-white bg-[#f6dfdb]">
       <div className="container relative z-10 mx-auto px-4">
+        {/* Company Stats */}
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#C84B31] mb-8">
+            Why Choose Cooper&apos;s Taxation?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-red-100 hover:shadow-xl transition-shadow duration-300">
+              <div className="text-5xl md:text-6xl font-bold text-[#C84B31] mb-3">
+                {COMPANY_STATS.happyClients}
+              </div>
+              <div className="text-xl font-semibold text-gray-800 mb-2">
+                Happy Clients
+              </div>
+              <div className="text-gray-600">
+                Trusted by thousands worldwide for reliable tax services
+              </div>
+            </div>
+            <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-red-100 hover:shadow-xl transition-shadow duration-300">
+              <div className="text-5xl md:text-6xl font-bold text-[#C84B31] mb-3">
+                {COMPANY_STATS.yearsOfExperience}
+              </div>
+              <div className="text-xl font-semibold text-gray-800 mb-2">
+                Years of Experience
+              </div>
+              <div className="text-gray-600">
+                Proven expertise and professional guidance since 2016
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h1
           className="text-xl sm:text-2xl md:text-3xl lg:text-4xl pt-12  text-center mb-4 font-poppins
         text-[#C84B31]"

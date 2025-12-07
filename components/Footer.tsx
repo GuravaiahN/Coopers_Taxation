@@ -147,7 +147,7 @@ const Footer = () => {
           {/* Legal Section */}
           <div className="text-center md:text-right text-sm text-gray-100">
             <p className="mb-2">
-              © {new Date().getFullYear()} Cooper&apos;s Taxation. All rights reserved.
+              © 2016 Cooper&apos;s Taxation. All rights reserved.
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs text-gray-200">

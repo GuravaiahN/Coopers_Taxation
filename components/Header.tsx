@@ -198,6 +198,48 @@ export default function Header() {
                   )
                 )}
 
+                {/* Mobile Auth Buttons */}
+                <div className="flex flex-col space-y-2 mt-4 pt-2 border-t border-gray-200">
+                  {isAuthenticated ? (
+                    <div className="flex flex-col space-y-2">
+                      <span className="text-gray-700 font-medium">Welcome, {user?.name}!</span>
+                      <Link
+                        href={user?.role?.toUpperCase() === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard'}
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-center transition"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout()
+                          setIsMenuOpen(false)
+                        }}
+                        className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col space-y-2">
+                      <Link
+                        href="/login"
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-center transition"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium text-center transition"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Register
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
                 <a
                   href="https://wa.me/14144467545"
                   target="_blank"

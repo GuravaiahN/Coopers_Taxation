@@ -143,7 +143,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
                 </div>
                 <div className="flex items-center space-x-2">
                   <span>📧</span>
-                  <span className="text-gray-700">info@cooperstaxservice.com</span>
+                  <span className="text-gray-700">info@cooperstaxation.com</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span>🕒</span>

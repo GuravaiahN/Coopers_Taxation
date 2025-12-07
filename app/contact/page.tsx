@@ -88,7 +88,7 @@ export default function ContactPage() {
                 <div className="text-red-600 text-xl">📧</div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Email Address</h3>
-                  <p className="text-gray-600">info@cooperstaxservice.com</p>
+                  <p className="text-gray-600">info@cooperstaxation.com</p>
                 </div>
               </div>
               
