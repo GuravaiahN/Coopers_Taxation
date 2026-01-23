@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/utils/authOptions';
 import mongoose from 'mongoose';
 import { connectToDatabase } from '../../../../utils/db';
+import Document from '../../../../models/Document';
 
 async function streamToBuffer(stream: any): Promise<Buffer> {
   return new Promise<Buffer>((resolve, reject) => {
@@ -62,27 +63,35 @@ export async function GET(
 
       // If not found, check if this is a Document ID and get the fileId
       if (!file) {
-        const DocumentModel = mongoose.models.Document || mongoose.model('Document', new mongoose.Schema({}, { collection: 'documents' }));
-        const documentRecord = await DocumentModel.findById(fileId);
-        
-        if (documentRecord && documentRecord.fileId) {
-          actualFileId = documentRecord.fileId.toString();
-          file = await db.collection('documents.files').findOne({
-            _id: new mongoose.Types.ObjectId(actualFileId),
-          });
+        try {
+          const documentRecord = await Document.findById(fileId);
+          
+          if (documentRecord && documentRecord.fileId) {
+            actualFileId = documentRecord.fileId.toString();
+            console.log(`Found Document record, using fileId: ${actualFileId}`);
+            file = await db.collection('documents.files').findOne({
+              _id: new mongoose.Types.ObjectId(actualFileId),
+            });
+          } else if (documentRecord) {
+            console.log('Document record found but no fileId:', documentRecord);
+          }
+        } catch (docError) {
+          console.log('Error finding document record:', docError);
         }
       }
 
       if (!file) {
+        console.error(`File not found for ID: ${fileId}, actualFileId: ${actualFileId}`);
         return NextResponse.json(
           {
             success: false,
-            message: 'File not found',
+            message: 'File not found in GridFS',
           },
           { status: 404 }
         );
       }
 
+      console.log(`Downloading file: ${file.filename} (${actualFileId})`);
       const contentType = file.contentType || 'application/octet-stream';
       const downloadStream = bucket.openDownloadStream(
         new mongoose.Types.ObjectId(actualFileId)
@@ -93,7 +102,7 @@ export async function GET(
       return new Response(new Uint8Array(fileBuffer), {
         headers: {
           'Content-Type': contentType,
-          'Content-Disposition': `attachment; filename=${file.filename}`,
+          'Content-Disposition': `attachment; filename="${encodeURIComponent(file.filename || 'document')}"`,
         },
       });
     } catch (error) {
@@ -160,12 +169,29 @@ export async function DELETE(
     const fileId = params.id;
 
     try {
-      // Check if file exists
-      const file = await db.collection('documents.files').findOne({
-        _id: new mongoose.Types.ObjectId(fileId),
+      // First, check if this is a Document record ID
+      let actualFileId = fileId;
+      let file = null;
+
+      try {
+        const documentRecord = await Document.findById(fileId);
+        
+        if (documentRecord && documentRecord.fileId) {
+          // This is a Document record, use the fileId
+          actualFileId = documentRecord.fileId.toString();
+        }
+      } catch (docError) {
+        // Not a valid Document ID, try as GridFS ID directly
+        console.log('Not a Document record, trying as GridFS ID');
+      }
+
+      // Check if file exists in GridFS
+      file = await db.collection('documents.files').findOne({
+        _id: new mongoose.Types.ObjectId(actualFileId),
       });
 
       if (!file) {
+        console.error(`File not found in GridFS for ID: ${actualFileId} (original: ${fileId})`);
         return NextResponse.json(
           {
             success: false,
@@ -176,11 +202,15 @@ export async function DELETE(
       }
 
       // Delete the file from GridFS
-      await bucket.delete(new mongoose.Types.ObjectId(fileId));
+      await bucket.delete(new mongoose.Types.ObjectId(actualFileId));
 
       // Also delete from Document collection if it exists
-      const DocumentModel = mongoose.models.Document || mongoose.model('Document', new mongoose.Schema({}, { collection: 'documents' }));
-      await DocumentModel.findOneAndDelete({ fileId: fileId });
+      await Document.findOneAndDelete({ 
+        $or: [
+          { _id: fileId },
+          { fileId: actualFileId }
+        ]
+      });
 
       return NextResponse.json(
         {
