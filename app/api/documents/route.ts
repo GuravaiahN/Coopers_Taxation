@@ -3,13 +3,14 @@ import { connectToDatabase } from '@/utils/db';
 import DocumentModel from '@/models/Document';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/authOptions';
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import mongoose from 'mongoose';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
+    console.log('Document upload started');
+    
     // Check authentication
     const session = await getServerSession(authOptions);
     
@@ -17,8 +18,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
+    console.log('User authenticated:', session.user.email);
+    
     // Connect to database
     await connectToDatabase();
+    const db = mongoose.connection.db;
+    if (!db) {
+      throw new Error('Database connection not established');
+    }
     
     const formData = await req.formData();
     const file = formData.get('file') as File;
@@ -26,6 +33,8 @@ export async function POST(req: NextRequest) {
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
+
+    console.log('File received:', file.name, 'Size:', file.size, 'Type:', file.type);
 
     // Validate file type and size
     const allowedTypes = [
@@ -49,53 +58,110 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // Generate unique filename
-    const timestamp = Date.now();
-    const filename = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    
-    // Save file to uploads directory
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const uploadsDir = join(process.cwd(), 'uploads');
-    const filePath = join(uploadsDir, filename);
-    
-    // Create uploads directory if it doesn't exist
-    const fs = require('fs');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-    
-    await writeFile(filePath, buffer);
-
-    // Connect to database and find user to get their ObjectId
+    // Find user to get their ObjectId
     const User = (await import('@/models/User')).default;
     const user = await User.findOne({ email: session.user.email });
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Save document info to database
-    const document = await DocumentModel.create({
-      filename,
-      originalName: file.name,
-      mimetype: file.type,
-      size: file.size,
-      path: filePath,
-      uploadedBy: user._id, // Use user's ObjectId instead of email
-      userId: user._id,     // Use user's ObjectId instead of email
-      status: 'UPLOADED'
+    console.log('User found:', user._id);
+
+    // Create GridFS bucket
+    const bucket = new mongoose.mongo.GridFSBucket(db, {
+      bucketName: 'documents'
     });
 
-    return NextResponse.json({
-      success: true,
-      document: {
-        id: document._id,
-        filename: document.filename,
-        originalName: document.originalName,
-        size: document.size,
-        status: document.status,
-        createdAt: document.createdAt
+    // Convert file to buffer
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    // Upload file to GridFS
+    const uploadStream = bucket.openUploadStream(file.name, {
+      metadata: {
+        originalName: file.name,
+        mimeType: file.type,
+        size: file.size,
+        uploadedBy: user._id.toString(),
+        uploadedAt: new Date()
       }
+    });
+
+    return new Promise((resolve) => {
+      uploadStream.on('error', (error) => {
+        console.error('GridFS upload error:', error);
+        resolve(NextResponse.json(
+          { error: 'Failed to upload file to storage' },
+          { status: 500 }
+        ));
+      });
+
+      uploadStream.on('finish', async () => {
+        try {
+          console.log(`GridFS upload finished. File ID: ${uploadStream.id}`);
+          
+          // Verify file exists in GridFS
+          const gridfsFile = await db.collection('documents.files').findOne({
+            _id: uploadStream.id
+          });
+
+          if (!gridfsFile) {
+            console.error('CRITICAL: GridFS file not found after upload');
+            resolve(NextResponse.json(
+              { error: 'File upload verification failed' },
+              { status: 500 }
+            ));
+            return;
+          }
+
+          console.log(`GridFS verification passed. File size: ${gridfsFile.length} bytes`);
+
+          // Save document metadata to MongoDB
+          const document = await DocumentModel.create({
+            fileId: uploadStream.id,
+            originalName: file.name,
+            mimeType: file.type,
+            size: file.size,
+            uploadedBy: user._id,
+            userId: user._id,
+            status: 'UPLOADED',
+            createdAt: new Date()
+          });
+
+          console.log(`Document saved. ID: ${document._id}, fileId: ${uploadStream.id}`);
+
+          resolve(NextResponse.json({
+            success: true,
+            document: {
+              id: document._id,
+              filename: document.originalName,
+              originalName: document.originalName,
+              size: document.size,
+              status: document.status,
+              createdAt: document.createdAt,
+              fileId: uploadStream.id.toString()
+            }
+          }));
+        } catch (dbError) {
+          console.error('Database save error:', dbError);
+          
+          // Clean up GridFS file if document save fails
+          try {
+            await bucket.delete(uploadStream.id);
+            console.log('Cleaned up GridFS file after DB save failure');
+          } catch (cleanupError) {
+            console.error('Failed to cleanup GridFS file:', cleanupError);
+          }
+          
+          resolve(NextResponse.json(
+            { error: 'Failed to save document metadata' },
+            { status: 500 }
+          ));
+        }
+      });
+
+      // Write buffer to upload stream
+      uploadStream.end(buffer);
     });
 
   } catch (error) {

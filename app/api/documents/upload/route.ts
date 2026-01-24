@@ -94,6 +94,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       uploadStream.on('finish', async () => {
         try {
+          console.log(`GridFS upload finished. File ID: ${uploadStream.id}`);
+          
+          // CRITICAL: Verify the file actually exists in GridFS before proceeding
+          const gridfsFile = await db.collection('documents.files').findOne({
+            _id: uploadStream.id
+          });
+
+          if (!gridfsFile) {
+            console.error('CRITICAL: GridFS file not found after upload completed');
+            resolve(NextResponse.json(
+              { error: 'File upload verification failed - file not persisted to storage' },
+              { status: 500 }
+            ));
+            return;
+          }
+
+          console.log(`GridFS verification passed. File size: ${gridfsFile.length} bytes`);
+
           // Save document metadata to MongoDB
           const document = new DocumentModel({
             fileId: uploadStream.id,
@@ -113,15 +131,25 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           });
 
           await document.save();
+          console.log(`Document metadata saved. Doc ID: ${document._id}, fileId: ${uploadStream.id}`);
 
           resolve(NextResponse.json({
             success: true,
             message: 'Document uploaded successfully',
             documentId: document._id,
-            fileId: uploadStream.id
+            fileId: uploadStream.id.toString()
           }));
         } catch (dbError) {
           console.error('Database save error:', dbError);
+          
+          // If document save fails, clean up the GridFS file
+          try {
+            await bucket.delete(uploadStream.id);
+            console.log('Cleaned up GridFS file after document save failure');
+          } catch (cleanupError) {
+            console.error('Failed to cleanup GridFS file:', cleanupError);
+          }
+          
           resolve(NextResponse.json(
             { error: 'Failed to save document metadata' },
             { status: 500 }
