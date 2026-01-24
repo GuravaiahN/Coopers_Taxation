@@ -411,37 +411,51 @@ const Modal = ({
   formatFileSize,
   handleDownload
 }: any) => (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
-    <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
-      <div className="flex justify-between mb-4">
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+    <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] flex flex-col">
+      {/* Fixed Header */}
+      <div className="flex justify-between items-center p-6 border-b sticky top-0 bg-white rounded-t-lg z-10">
         <h2 className="text-lg font-semibold">Document Details</h2>
-        <button onClick={close} className="text-gray-500 hover:text-gray-700">
+        <button 
+          onClick={close} 
+          className="text-gray-500 hover:text-gray-700 text-2xl leading-none p-1"
+          aria-label="Close"
+        >
           ✕
         </button>
       </div>
 
-      <div className="space-y-3">
-        <p><strong>Name:</strong> {doc.originalName}</p>
-        <p><strong>Size:</strong> {formatFileSize(doc.size)}</p>
-        <p><strong>Status:</strong> <span className={`px-2 py-1 rounded ${getStatusColor(doc.status)}`}>{doc.status}</span></p>
-        <p><strong>Uploaded:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
+      {/* Scrollable Content */}
+      <div className="p-6 overflow-y-auto flex-1">
+        <div className="space-y-3">
+          <p><strong>Name:</strong> {doc.originalName}</p>
+          <p><strong>Size:</strong> {formatFileSize(doc.size)}</p>
+          <p><strong>Status:</strong> <span className={`px-2 py-1 rounded ${getStatusColor(doc.status)}`}>{doc.status}</span></p>
+          <p><strong>Uploaded:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
 
-        {doc.notes && (
-          <p><strong>Notes:</strong> {doc.notes}</p>
-        )}
+          {doc.notes && (
+            <p><strong>Notes:</strong> {doc.notes}</p>
+          )}
+        </div>
       </div>
 
-      <div className="mt-6 flex justify-end gap-3">
-        <button
-          onClick={() => handleDownload(doc._id, doc.originalName)}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg"
-        >
-          <FaDownload className="inline-block mr-2" />
-          Download
-        </button>
-        <button onClick={close} className="bg-gray-300 px-4 py-2 rounded-lg">
-          Close
-        </button>
+      {/* Fixed Footer */}
+      <div className="p-6 border-t bg-white rounded-b-lg sticky bottom-0">
+        <div className="flex justify-end gap-3">
+          <button
+            onClick={() => handleDownload(doc._id, doc.originalName)}
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+          >
+            <FaDownload className="inline-block mr-2" />
+            Download
+          </button>
+          <button 
+            onClick={close} 
+            className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>

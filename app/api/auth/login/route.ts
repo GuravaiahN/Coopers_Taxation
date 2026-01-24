@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { generateJWT } from '../../../../lib/auth'
+import { connectToDatabase } from '../../../../utils/db'
+import User from '../../../../models/User'
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,33 +25,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Demo accounts with hashed passwords
-    const demoAccounts = [
-      {
-        id: '1',
-        email: 'admin@coopers.com',
-        password: await bcrypt.hash('admin123', 10),
-        name: 'Admin User',
-        role: 'ADMIN'
-      },
-      {
-        id: '2',
-        email: 'user@coopers.com',
-        password: await bcrypt.hash('user123', 10),
-        name: 'Demo User',
-        role: 'USER'
-      },
-      {
-        id: '3',
-        email: 'test@cooperstaxation.com',
-        password: await bcrypt.hash('test123', 10),
-        name: 'Test User',
-        role: 'USER'
-      }
-    ]
+    // Connect to database
+    await connectToDatabase()
 
     // Find user by email
-    const user = demoAccounts.find(account => account.email.toLowerCase() === email.toLowerCase())
+    const user = await User.findOne({ email: email.toLowerCase() })
     
     if (!user) {
       return NextResponse.json(
@@ -70,14 +50,14 @@ export async function POST(request: NextRequest) {
 
     // Generate JWT token
     const token = generateJWT({
-      userId: user.id,
+      userId: user._id.toString(),
       email: user.email,
-      role: user.role
+      role: user.role.toUpperCase()
     })
 
     // Return user data (without password)
     const userData = {
-      id: user.id,
+      id: user._id.toString(),
       email: user.email,
       name: user.name,
       role: user.role

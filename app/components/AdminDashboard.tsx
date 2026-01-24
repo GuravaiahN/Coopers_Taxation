@@ -249,9 +249,10 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleDownloadDocument = async (doc: UserDocument) => {
-    const id = doc.fileId || doc._id;
+    // Use document ID, not fileId - the route expects document ID
+    const id = doc._id;
     if (!id) {
-      alert('No file id available');
+      alert('No document id available');
       return;
     }
     try {
@@ -587,9 +588,11 @@ const Th: React.FC<{ label: string; active?: boolean; order?: 'asc' | 'desc'; on
 );
 
 const ModalWrapper: React.FC<{ children: React.ReactNode; onClose: () => void }> = ({ children, onClose }) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
     <div className="absolute inset-0 bg-black opacity-50" onClick={onClose} />
-    <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-auto">{children}</div>
+    <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg my-8 max-h-[90vh] flex flex-col">
+      {children}
+    </div>
   </div>
 );
 
@@ -601,29 +604,40 @@ const UserModal: React.FC<{
   onClose: () => void;
 }> = ({ user, documents, onDownload, onShare, onClose }) => {
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-xl font-semibold">{user.name}</h3>
-          <p className="text-sm text-gray-600">{user.email}</p>
+    <>
+      {/* Fixed Header */}
+      <div className="p-6 border-b sticky top-0 bg-white rounded-t-lg z-10">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-xl font-semibold">{user.name}</h3>
+            <p className="text-sm text-gray-600">{user.email}</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-gray-500">Joined: {new Date(user.createdAt).toLocaleDateString()}</p>
+            <button 
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700 text-2xl leading-none p-1"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
         </div>
-        <div>
-          <p className="text-sm text-gray-500">Joined: {new Date(user.createdAt).toLocaleDateString()}</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div className="bg-gray-50 p-4 rounded">
+            <p className="text-sm text-gray-600">Role</p>
+            <p className="font-medium">{user.role || 'user'}</p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded">
+            <p className="text-sm text-gray-600">Documents</p>
+            <p className="font-medium">{documents.length}</p>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-gray-50 p-4 rounded">
-          <p className="text-sm text-gray-600">Role</p>
-          <p className="font-medium">{user.role || 'user'}</p>
-        </div>
-        <div className="bg-gray-50 p-4 rounded">
-          <p className="text-sm text-gray-600">Documents</p>
-          <p className="font-medium">{documents.length}</p>
-        </div>
-      </div>
-
-      <div>
+      {/* Scrollable Content */}
+      <div className="p-6 overflow-y-auto flex-1">
         <h4 className="text-lg font-semibold mb-3">Uploaded Documents</h4>
         {documents.length === 0 ? (
           <p className="text-gray-500">No documents uploaded.</p>
@@ -653,12 +667,18 @@ const UserModal: React.FC<{
         )}
       </div>
 
-      <div className="mt-6 text-right">
-        <button onClick={onClose} className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200">
-          Close
-        </button>
+      {/* Fixed Footer */}
+      <div className="p-6 border-t bg-white rounded-b-lg sticky bottom-0">
+        <div className="text-right">
+          <button 
+            onClick={onClose} 
+            className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+          >
+            Close
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

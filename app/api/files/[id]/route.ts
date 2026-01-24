@@ -51,70 +51,66 @@ export async function GET(
       bucketName: 'documents',
     });
 
-    const fileId = params.id;
+    console.log(`Download request for ID: ${params.id}`);
 
-    try {
-      // First try to find the file directly in GridFS
-      let file = await db.collection('documents.files').findOne({
-        _id: new mongoose.Types.ObjectId(fileId),
-      });
-
-      let actualFileId = fileId;
-
-      // If not found, check if this is a Document ID and get the fileId
-      if (!file) {
-        try {
-          const documentRecord = await Document.findById(fileId);
-          
-          if (documentRecord && documentRecord.fileId) {
-            actualFileId = documentRecord.fileId.toString();
-            console.log(`Found Document record, using fileId: ${actualFileId}`);
-            file = await db.collection('documents.files').findOne({
-              _id: new mongoose.Types.ObjectId(actualFileId),
-            });
-          } else if (documentRecord) {
-            console.log('Document record found but no fileId:', documentRecord);
-          }
-        } catch (docError) {
-          console.log('Error finding document record:', docError);
-        }
-      }
-
-      if (!file) {
-        console.error(`File not found for ID: ${fileId}, actualFileId: ${actualFileId}`);
-        return NextResponse.json(
-          {
-            success: false,
-            message: 'File not found in GridFS',
-          },
-          { status: 404 }
-        );
-      }
-
-      console.log(`Downloading file: ${file.filename} (${actualFileId})`);
-      const contentType = file.contentType || 'application/octet-stream';
-      const downloadStream = bucket.openDownloadStream(
-        new mongoose.Types.ObjectId(actualFileId)
-      );
-
-      const fileBuffer = await streamToBuffer(downloadStream);
-
-      return new Response(new Uint8Array(fileBuffer), {
-        headers: {
-          'Content-Type': contentType,
-          'Content-Disposition': `attachment; filename="${encodeURIComponent(file.filename || 'document')}"`,
-        },
-      });
-    } catch (error) {
-      console.error('Error fetching file:', error);
+    // Get document record
+    const document = await Document.findById(params.id);
+    
+    if (!document) {
+      console.error(`Document not found. ID: ${params.id}`);
       return NextResponse.json(
-        {
-          success: false,
-          message: 'Error fetching file',
-        },
-        { status: 500 }
+        { success: false, message: 'Document not found' },
+        { status: 404 }
       );
     }
+
+    console.log(`Document: ${document.originalName}, fileId: ${document.fileId}, userId: ${document.userId}`);
+
+    // Check access permission
+    const isAdmin = session.user?.role === 'admin' || session.user?.isAdmin;
+    const isOwner = document.userId?.toString() === session.user?.id;
+    
+    if (!isAdmin && !isOwner) {
+      console.error(`Access denied. User: ${session.user?.id}, Owner: ${document.userId}`);
+      return NextResponse.json(
+        { success: false, message: 'Access denied' },
+        { status: 403 }
+      );
+    }
+
+    // Verify fileId exists
+    if (!document.fileId) {
+      console.error(`Document ${params.id} has no fileId - file never persisted`);
+      return NextResponse.json(
+        { success: false, message: 'File not available - upload failed' },
+        { status: 404 }
+      );
+    }
+
+    // Verify file exists in GridFS
+    const gridfsFile = await db.collection('documents.files').findOne({
+      _id: new mongoose.Types.ObjectId(document.fileId),
+    });
+
+    if (!gridfsFile) {
+      console.error(`GridFS file missing. Doc: ${params.id}, fileId: ${document.fileId}`);
+      return NextResponse.json(
+        { success: false, message: 'File not found in storage' },
+        { status: 404 }
+      );
+    }
+
+    console.log(`Downloading: ${document.originalName}, ${gridfsFile.length} bytes`);
+
+    const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(document.fileId));
+    const fileBuffer = await streamToBuffer(downloadStream);
+
+    return new Response(new Uint8Array(fileBuffer), {
+      headers: {
+        'Content-Type': document.mimeType || 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${encodeURIComponent(document.originalName)}"`,
+      },
+    });
   } catch (error) {
     console.error('Error in GET handler:', error);
     return NextResponse.json(
