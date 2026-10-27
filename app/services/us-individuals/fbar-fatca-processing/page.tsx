@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/Services-FBAR-FATCA-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "FBAR & FATCA Compliance Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Need help with FBAR and FATCA compliance? Cooper's Taxation offers expert filing services for FinCEN Form 114 and IRS Form 8938.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/Services-FBAR-FATCA-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "FBAR & FATCA Compliance Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const FbarFatcaComponent = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/Services-FBAR-FATCA-min.jpg'}
-            alt="Fbar-Fatca-Processing"
+            src={'/images/financial-workspace.webp'}
+            alt="Laptop and financial reports for tax preparation"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

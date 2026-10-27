@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/About.png',
-        alt: "About Us - Cooper's Taxation Team",
+        url: '/images/financial-workspace-social.jpg',
+        alt: 'Financial workspace with a laptop, charts, and calculator',
       },
     ],
     locale: 'en_US',
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
       "Get to know the experienced team behind Cooper's Taxation. Providing top-quality tax, bookkeeping, and payroll services tailored to meet your needs.",
     images: [
       {
-        url: '/images/AboutUsHero.png',
-        alt: "About Us - Cooper's Taxation Team",
+        url: '/images/financial-workspace-social.jpg',
+        alt: 'Financial workspace with a laptop, charts, and calculator',
       },
     ],
   },
@@ -71,15 +71,14 @@ const AboutUs = () => {
     <div className="bg-[#fff6f4] py-16 px-4 md:px-6">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-center space-y-10 md:space-y-0 md:space-x-12">
 
-        {/* Left Illustration */}
+        {/* Financial workspace */}
         <div className="w-full sm:w-3/5 md:w-1/2 relative h-[260px] sm:h-[300px] md:h-[380px] rounded-xl overflow-hidden shadow-xl">
           <Image
-            src="/images/AboutUsHero.png"
-            alt="About Cooper's Taxation"
+            src="/images/financial-workspace.webp"
+            alt="Laptop, financial reports, and calculator on a desk"
             fill
-            className="absolute object-contain rounded-xl"
-            quality={100}
-            priority
+            sizes="(max-width: 767px) 100vw, 50vw"
+            className="object-cover rounded-xl"
           />
         </div>
 

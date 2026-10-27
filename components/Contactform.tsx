@@ -92,12 +92,12 @@ const ContactForm: React.FC = () => {
           </p>
           <div className="w-full h-64 sm:h-80 md:h-96 relative">
             <Image
-              src="/images/team3.webp"
-              alt="Person Working on Laptop"
-              layout="fill"
+              src="/images/contact-workspace.webp"
+              alt="Organized workspace with a calculator, notebook, and stationery"
+              fill
               className="object-cover rounded-2xl"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={100}
+              quality={85}
               priority
             />
           </div>

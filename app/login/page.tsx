@@ -115,9 +115,6 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-[#faf7f6] relative px-4">
       {isVisible && <Toast />}
 
-      {/* Clean background pattern */}
-      <div className="absolute inset-0 bg-[url('/pattern-light.svg')] opacity-5 pointer-events-none"></div>
-
       <div className="w-full max-w-5xl bg-white shadow-xl rounded-xl relative z-10 p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 border border-gray-100">
 
         {/* Left: Illustration + Text */}
@@ -131,9 +128,10 @@ export default function Login() {
 
           <div className="relative w-full h-60 md:h-80">
             <Image
-              src="/images/LoginIllustration.png.png"
+              src="/images/login-support.webp"
               alt="Login Illustration"
               fill
+              sizes="(max-width: 767px) 100vw, 400px"
               className="object-contain"
               priority
             />

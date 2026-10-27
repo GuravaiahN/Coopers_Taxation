@@ -1,5 +1,4 @@
 import { ArrowRight, CheckCircle, Phone } from 'lucide-react'
-import Link from 'next/link'
 import Image from 'next/image'
 
 const Hero = () => {
@@ -53,14 +52,15 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Illustration */}
+          {/* Tax preparation photo */}
           <div className="order-1 lg:order-2">
             <div className="w-full h-auto max-w-lg mx-auto rounded-lg shadow-lg bg-gradient-to-br from-red-100 to-red-200 p-8 text-center">
               <Image
-                src="/images/FinanceV02.webp"
-                alt="Professional Tax Services"
-                width={400}
-                height={300}
+                src="/images/us-tax-preparation.webp"
+                alt="Preparing a US tax return with a calculator and tax forms"
+                width={1600}
+                height={1066}
+                sizes="(max-width: 1023px) 100vw, 448px"
                 className="w-full h-auto rounded-lg mb-4"
                 priority
               />

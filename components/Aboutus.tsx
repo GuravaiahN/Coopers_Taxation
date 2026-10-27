@@ -12,11 +12,11 @@ const AboutUs = () => {
         {/* Left Section - Illustration */}
         <div className="w-full sm:w-3/5 md:w-3/5 relative h-[200px] sm:h-[200px] md:h-[300px] sm:mt-4 rounded-lg overflow-hidden">
           <Image
-            src="/images/AboutUsHero.png"
-            alt="About Cooper's Taxation"
+            src="/images/financial-workspace.webp"
+            alt="Laptop, financial reports, and calculator on a desk"
             fill
-            className="absolute object-contain rounded-lg"
-            quality={100}
+            className="object-cover rounded-lg"
+            sizes="(max-width: 767px) 100vw, 60vw"
             priority
           />
         </div>

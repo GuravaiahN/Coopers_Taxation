@@ -29,6 +29,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://www.cooperstaxation.com'),
   title: "Cooper's Taxation - Professional Tax Services",
   description: "Expert tax preparation and consultation services for individuals and businesses. Professional, reliable, and secure tax solutions.",
   icons: {
@@ -47,7 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <title>Cooper&apos;s Taxation</title>
         <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="icon" href="/favicon.png" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
       </head>

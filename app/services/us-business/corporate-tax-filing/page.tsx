@@ -30,12 +30,12 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service13.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: 'Corporate Tax Filing',
       },
       {
-        url: 'https://www.cooperstaxation.com/service13.jpg',
-        alt: 'Our Expert Taxation Team',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
+        alt: 'Business accounting workspace',
       },
     ],
     locale: 'en_US',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
       "Looking for reliable corporate tax filing services? Cooper's Taxation offers expert solutions for businesses of all sizes. Contact us today!",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service13.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: 'Corporate Tax Filing',
       },
     ],
@@ -87,10 +87,10 @@ const CorporateTaxFiling = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/services-corporate-tax-min.jpg'}
-            alt="Corporate-Tax-Filing"
+            src={'/images/financial-workspace.webp'}
+            alt="Laptop, financial reports, and calculator for business accounting"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

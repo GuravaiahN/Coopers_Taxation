@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/About.png',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "Contact Cooper's Taxation - Professional Support",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Reach out to Cooper's Taxation for expert help with bookkeeping, taxation, and payroll services. We're here to assist you.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/About.png',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "Contact Cooper's Taxation - Professional Support",
       },
     ],
@@ -86,10 +86,11 @@ const ContactUs = () => {
         {/* Right Section - Image */}
         <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-lg">
           <Image
-            src="/images/ContactHero.png"
-            alt="Customer Service Illustration"
+            src="/images/contact-workspace.webp"
+            alt="Organized workspace with a calculator, notebook, and stationery"
             fill
-            className="object-cover"
+            sizes="(max-width: 767px) 100vw, 50vw"
+            className="object-cover rounded-lg"
             priority
           />
         </div>

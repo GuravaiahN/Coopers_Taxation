@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/AboutUsHero.png',
-        alt: "About Us - Cooper's Taxation Team",
+        url: '/images/financial-workspace-social.jpg',
+        alt: "Financial workspace with a laptop, charts, and calculator",
       },
     ],
     locale: 'en_US',
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
       "Get to know the experienced team behind Cooper's Taxation. Providing top-quality tax, bookkeeping, and payroll services tailored to meet your needs.",
     images: [
       {
-        url: '/images/AboutUsHero.png',
-        alt: "About Us - Cooper's Taxation Team",
+        url: '/images/financial-workspace-social.jpg',
+        alt: "Financial workspace with a laptop, charts, and calculator",
       },
     ],
   },
@@ -71,9 +71,11 @@ const AboutUs = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between space-y-12 lg:space-y-0">
           <div className="relative w-full lg:w-1/2 h-64 sm:h-80 md:h-96">
             <Image
-              src="/images/AboutUsHero.png"
-              alt="About Cooper's Taxation"
+              src="/images/financial-workspace.webp"
+              alt="Laptop, financial reports, and calculator on a desk"
               fill
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              priority
               style={{ objectFit: 'cover' }}
               className="rounded-md"
             />
@@ -103,23 +105,14 @@ const AboutUs = () => {
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12 bg-[#f6dfdb] rounded-lg">
         <div className="flex flex-col lg:flex-row items-center justify-between space-y-12 lg:space-y-0">
-          <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="w-full lg:w-1/2">
             <div className="relative w-full h-64 sm:h-80 md:h-96">
               <Image
-                src="/images/TeamWorkingOnTax.png"
-                alt="Team working on tax solutions"
+                src="/images/us-tax-preparation.webp"
+                alt="Preparing US tax forms with a calculator"
                 fill
-                objectFit="cover"
-                className="rounded-md object-right"
-              />
-            </div>
-            <div className="relative w-full h-64 sm:h-80 md:h-96">
-              <Image
-                src="/images/TaxSign.png"
-                alt="Signing important documents"
-                fill
-                objectFit="cover"
-                className="rounded-md"
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                className="rounded-md object-cover"
               />
             </div>
           </div>

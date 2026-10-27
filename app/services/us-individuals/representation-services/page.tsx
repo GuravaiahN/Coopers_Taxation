@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-representation-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "Tax Representation Services - Cooper's Taxation",
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
       "Facing a tax audit? Cooper's Taxation provides expert representation services to ensure compliance and resolve tax-related issues effectively.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-representation-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "Tax Representation Services - Cooper's Taxation",
       },
     ],
@@ -80,10 +80,10 @@ const RepresentationServices = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/services-representation-min.jpg'}
-            alt="Federal And State Tax Filing"
+            src={'/images/contact-workspace.webp'}
+            alt="Organized workspace for reviewing financial documents"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

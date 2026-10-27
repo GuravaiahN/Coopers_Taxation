@@ -17,11 +17,6 @@ const Footer = () => {
   return (
     <footer className="bg-[#C84B31] text-white py-16 mt-16 relative overflow-hidden">
 
-      {/* Decorative Background Shape */}
-      <div className="absolute inset-0 opacity-10 bg-cover bg-center"
-        style={{ backgroundImage: "url('/About.png')" }}
-      />
-
       <div className="relative container mx-auto px-6 lg:px-12">
 
         {/* TOP GRID */}

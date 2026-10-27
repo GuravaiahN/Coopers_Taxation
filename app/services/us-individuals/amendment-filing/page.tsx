@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service10.jpg',
+        url: 'https://www.cooperstaxation.com/images/us-tax-preparation-social.jpg',
         alt: "Amendment Filing Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Need to file an amended tax return? Cooper's Taxation provides expert services to correct errors in filing status, credits, and deductions.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service10.jpg',
+        url: 'https://www.cooperstaxation.com/images/us-tax-preparation-social.jpg',
         alt: "Amendment Filing Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const AmendmentFilingComponent = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/service10.jpg'}
-            alt="Amendment-Filing"
+            src={'/images/us-tax-preparation.webp'}
+            alt="Reviewing US tax forms with a calculator"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

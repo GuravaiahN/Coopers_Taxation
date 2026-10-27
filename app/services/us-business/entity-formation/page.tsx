@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-entity-formation-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "Entity Formation Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Looking to incorporate your business? Cooper's Taxation offers expert assistance with LLCs, S-corporations, and partnership setups.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-entity-formation-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "Entity Formation Services - Cooper's Taxation",
       },
     ],
@@ -79,10 +79,10 @@ const EntityFormation = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/services-entity-formation-min.jpg'}
-            alt="Entity-Formation"
+            src={'/images/financial-workspace.webp'}
+            alt="Laptop and financial reports for business planning"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

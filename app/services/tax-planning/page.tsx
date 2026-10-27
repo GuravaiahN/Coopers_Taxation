@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, CheckCircle, FileText, Calendar, Shield, DollarSign } from 'lucide-react'
 import { servicesData } from '../../../data/services'
 
@@ -34,6 +35,14 @@ export default function TaxPlanningPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
+            <Image
+              src="/images/tax-planning.webp"
+              alt="Calendar, clock, and Form 1040 for tax planning"
+              width={1600}
+              height={1066}
+              sizes="(max-width: 1023px) 100vw, 67vw"
+              className="w-full h-auto rounded-lg shadow-lg mb-8"
+            />
             {/* Features Section */}
             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
               <h2 className="text-2xl font-bold text-[#C84B31] mb-6 flex items-center">

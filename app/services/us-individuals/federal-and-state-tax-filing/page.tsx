@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service8.jpg',
+        url: 'https://www.cooperstaxation.com/images/us-tax-preparation-social.jpg',
         alt: "Federal & State Tax Filing Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Looking for professional tax filing services? Cooper's Taxation ensures accurate and reliable federal and state tax filings for individuals and businesses.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/service8.jpg',
+        url: 'https://www.cooperstaxation.com/images/us-tax-preparation-social.jpg',
         alt: "Federal & State Tax Filing Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const FederalStateTaxFiling = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/service8.jpg'}
-            alt=" Federal-and-State-Tax-Filing"
+            src={'/images/us-tax-preparation.webp'}
+            alt="Preparing US tax forms with a calculator"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

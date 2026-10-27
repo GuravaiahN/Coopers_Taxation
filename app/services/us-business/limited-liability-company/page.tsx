@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-LLP-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "LLC Formation Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Looking to form an LLC? Cooper's Taxation provides professional assistance for LLC setup, compliance, and management.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-LLP-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "LLC Formation Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const LimitedLiabilityCompany = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/services-LLP-min.jpg'}
-            alt="Limited-Liability-Company"
+            src={'/images/financial-workspace.webp'}
+            alt="Laptop and financial reports for business accounting"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

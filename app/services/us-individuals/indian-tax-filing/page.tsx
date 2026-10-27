@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-indian-tax-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "Indian Tax Filing Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "File your Indian taxes with ease. Cooper's Taxation provides professional services for U.S. residents and NRIs to handle their Indian tax obligations.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/services-indian-tax-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/financial-workspace-social.jpg',
         alt: "Indian Tax Filing Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const IndianTaxFiling = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/services-indian-tax-min.jpg'}
-            alt="Indian-Tax-Filing"
+            src={'/images/financial-workspace.webp'}
+            alt="Financial reports and calculator on a desk"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority

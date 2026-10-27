@@ -79,7 +79,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="bg-[#fafafa] py-16 relative">
+    <section id="contact" className="bg-[#fafafa] py-16 relative">
       {isVisible && <Toast />}
 
       <div className="container mx-auto px-4 sm:px-6 md:px-12 flex flex-col lg:flex-row items-center gap-12">
@@ -97,11 +97,11 @@ export default function ContactForm() {
 
           <div className="relative w-full h-72 sm:h-80 md:h-96">
             <Image
-              src="/LaptopPerson.png"
-              alt="Person Working on Laptop"
+              src="/images/contact-workspace.webp"
+              alt="Organized workspace with a calculator, notebook, and stationery"
               fill
-              className="object-contain rounded-xl"
-              priority
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              className="object-cover rounded-xl"
             />
           </div>
         </div>

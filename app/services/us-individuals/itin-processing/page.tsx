@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cooperstaxation.com/Services-ITIN-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "ITIN Processing Services - Cooper's Taxation",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Looking for ITIN processing help? Cooper's Taxation provides expert guidance to apply for and obtain your Individual Taxpayer Identification Number.",
     images: [
       {
-        url: 'https://www.cooperstaxation.com/Services-ITIN-min.jpg',
+        url: 'https://www.cooperstaxation.com/images/contact-workspace-social.jpg',
         alt: "ITIN Processing Services - Cooper's Taxation",
       },
     ],
@@ -81,10 +81,10 @@ const ItinProcessing = () => {
         <div className="relative h-[500px]">
           {/* Image */}
           <Image
-            src={'/Services-ITIN-min.jpg'}
-            alt="Itin-Processing"
+            src={'/images/contact-workspace.webp'}
+            alt="Organized workspace for preparing tax documents"
             className="absolute top-0 left-0 z-0 object-cover"
-            quality={100}
+            quality={85}
             fill
             sizes="100vw"
             priority
